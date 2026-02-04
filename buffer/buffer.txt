@@ -1,0 +1,161 @@
+Perfect example 👍 — **video upload** is exactly where Buffer shines.
+Let’s *walk through it slowly*, like a data flow story.
+
+---
+
+## First, imagine the situation
+
+You upload a **500 MB video** to a Node.js server.
+
+❓Question for you (don’t answer yet, just think):
+Can your server keep the whole 500 MB in RAM at once safely?
+
+👉 **No** (usually)
+
+So Node.js does this **incrementally**.
+
+---
+
+## How Buffer works during video upload (step-by-step)
+
+
+### 🔹 Step 1: Browser sends video in chunks
+
+The browser **does NOT send the whole video at once**.
+It splits the video into **small pieces (chunks)**.
+
+Each chunk is:
+
+* Raw binary data
+* A few KBs or MBs
+
+---
+
+### 🔹 Step 2: Node.js receives chunks as Buffers
+
+On the server side:
+
+```js
+req.on("data", (chunk) => {
+  // chunk is a Buffer
+});
+```
+
+That `chunk` is literally:
+
+```
+<Buffer ff d8 ff e0 00 10 4a 46 49 46 ... >
+```
+
+👉 **Each chunk = one Buffer**
+
+---
+
+### 🔹 Step 3: Buffer temporarily holds the data
+
+Think of Buffer as:
+
+> “Hold this piece of the video until I decide what to do with it.”
+
+Node now has options:
+
+* Write it to disk
+* Stream it to cloud storage (S3, GCP)
+* Process it (compression, validation)
+* Forward it
+
+---
+
+### 🔹 Step 4: Buffer → disk (or cloud)
+
+```js
+req.on("data", (chunk) => {
+  writeStream.write(chunk); // chunk is Buffer
+});
+```
+
+Important:
+
+* Node **does not convert to string**
+* No decoding
+* No copying unnecessary memory
+
+👉 Buffer is written **directly** → very fast
+
+---
+
+### 🔹 Step 5: Repeat until upload finishes
+
+* Chunk arrives → Buffer created
+* Buffer processed → released
+* Memory stays stable ✅
+
+Even for a **10 GB video**, RAM usage stays low.
+
+---
+
+## Why Buffer is CRITICAL here
+
+### ❌ Without Buffer (hypothetical)
+
+* Entire video loaded in memory
+* Server crashes
+* Very slow
+* Impossible for streaming
+
+### ✅ With Buffer
+
+* Small memory usage
+* High speed
+* Safe uploads
+* Streaming works
+
+---
+
+## One powerful mental model 🧠
+
+Think like this:
+
+```
+Video file = huge river 🌊
+Buffer = small cup 🥤
+Node.js keeps filling & emptying the cup
+```
+
+Node **never drinks the whole river at once**.
+
+---
+
+## Important clarification (common confusion)
+
+⚠️ **Buffer is NOT permanent storage**
+
+* Buffer = temporary memory
+* Disk / Cloud = permanent storage
+
+So:
+
+> Video → Buffer → Disk / Cloud
+
+---
+
+## Tiny recap (say this aloud)
+
+* Video upload is **binary data**
+* Binary data arrives in **chunks**
+* Each chunk is stored in a **Buffer**
+* Buffer prevents memory overload
+* Node processes data **stream-by-stream**
+
+---
+
+## Your turn (very important)
+
+Answer this in one or two lines:
+
+👉 **Why is Buffer necessary when uploading a large video instead of reading the full file at once?**
+
+Once you answer, I’ll show:
+
+* how **streams + buffer + backpressure** work together
+* and how libraries like `multer` use Buffer internally 🚀
