@@ -50,7 +50,7 @@ Imagine you are downloading a movie.
 1. **The Buffer** holds chunks of the movie data as they arrive from the internet because the computer can't play the whole file instantly.
 2. **The Event** triggers a "Progress Update" every time a chunk of data is finished being buffered, so you can see the percentage bar move.
 
-
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 Libuv's Event loop use event-driven architechture (For Async). Nor synchronous js code does not use event driven architecture.
