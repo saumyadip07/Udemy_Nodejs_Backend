@@ -1,0 +1,6 @@
+express - ^4.21.1 
+4- It is major version , totally revamped codebase . Have to update
+21- It is minor version where new feature is added. To get the feature you need to update(Backward compatible)
+1- That is patch update . Just some small bug fix. No need to update ,or can update (Backward compatible)
+^ - Automatic update for minor and patch version
+~ - Automatic update for patch version
