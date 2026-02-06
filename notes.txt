@@ -3,4 +3,28 @@ express - ^4.21.1
 21- It is minor version where new feature is added. To get the feature you need to update(Backward compatible)
 1- That is patch update . Just some small bug fix. No need to update ,or can update (Backward compatible)
 ^ - Automatic update for minor and patch version
-~ - Automatic update for patch version
+~ - Automatic update for patch version  
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+middleware -> 1.Application level middleware /Global middleware (used using app.use())
+                          2.Route level middleware (used using router.use) [specific for router]
+                          3. Custom middleware ( used in particular API)
+                          4. Inbuilt express middleware (express.json())
+                          5. External middleware - app.use(morgan('dev'))
+                          6. Error Handling middleware
+
+                                           app.get("/divide",(req,res,next)=>{
+                                                              try{
+                                                                        const res=10/0;
+                                                                        if(!isFinite(res)){ throw new Error ('divide by 0')}
+                                                                        res.send(res)
+                                                                 }catch(err){ next(err)}
+                                              });
+
+                                           app.use(err,req,res,next) =>{
+                                                        console.log(err.messgae)
+                                                             res.json(res)
+                                                    }
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
