@@ -28,3 +28,30 @@ middleware -> 1.Application level middleware /Global middleware (used using app.
                                                     }
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+ORM - Object Relation Mapping
+
+JS- Postgres ( Drizzle ORM)
+JS - MySql  (Drizzle ORM)
+
+JS - MongoDB (Mongoose)
+
+python -postgres (sqlAlchemy)
+python - MongoDB (pyMongo)
+
+JS- POSTGRES , JS-MySql ,JS-MongoDB (Prisma supports all)
+
+
+
+//---------------------------------------------------------------------------------------------------------------------------------
+Download Postgres
+1. Full Download
+2. Cloud hosted postgres - use superbase
+3. Hybrid approach - docker (use VM to run postgres locally)
+
+docker-compose.yml file command
+1. docker compose up (to pull )
+2. ctrl+c to stop
+3. Run that container again (docker compose up -d)
+4. To stop that container (docker compose down)
