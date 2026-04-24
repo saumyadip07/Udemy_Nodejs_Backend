@@ -53,5 +53,5 @@ Download Postgres
 docker-compose.yml file command
 1. docker compose up (to pull )
 2. ctrl+c to stop
-3. Run that container again (docker compose up -d)
+3. Run that container again (docker compose up -d) but in the background
 4. To stop that container (docker compose down)
